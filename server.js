@@ -5,7 +5,9 @@ const conv = require('./src/converter');
 const rp = require('request-promise');
 const querystring = require('querystring');
 const cheerio = require('cheerio');
+var path = require('path');
 
+var public = path.join(__dirname, 'public');
 const app = express();
 app.use("/public", express.static(__dirname + '/public'));
 
@@ -13,15 +15,7 @@ app.use("/public", express.static(__dirname + '/public'));
 const server = http.createServer(app);
 
 app.get('/', (req, res) => {
-	console.log("hello world!");
-	
-
-	let sampleText = "Jeff Bezos is a billionaire and runs the company Amazon. He isn't that great. He's best known for his work dealing with things.";
-
-	let pastText = conv.makePast(sampleText);
-
-	res.send(pastText);
-
+	res.sendFile(path.join(public, 'index.html'));
 })
 
 app.get('/wiki/Wikipedia:About/', (req, res) => {
@@ -85,6 +79,10 @@ app.get('/w/index.php', (req, res) => {
 
 app.get('/about/', (req, res) => {
 	res.send("ABOUT PAGE COMING SOON");
+})
+
+app.get('*', (req, res) => {
+	res.redirect("/about");
 })
 
 function replacer($, text, f) {

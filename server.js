@@ -78,7 +78,7 @@ app.get('/w/index.php', (req, res) => {
 })
 
 app.get('/about/', (req, res) => {
-	res.send("ABOUT PAGE COMING SOON");
+	res.sendFile(path.join(public, 'about.html'));
 })
 
 app.get('*', (req, res) => {
@@ -132,6 +132,6 @@ function processHtml(html) {
 }
 
 //start our server
-server.listen(process.env.PORT || 8080, () => {
+server.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port ' + server.address().port + ' :)');
 });

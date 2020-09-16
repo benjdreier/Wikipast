@@ -10,6 +10,7 @@ var path = require('path');
 var public = path.join(__dirname, 'public');
 const app = express();
 app.use("/public", express.static(__dirname + '/public'));
+//app.use('/favicon.ico', express.static('public/wikipasticon.png'));
 
 //initialize a simple http server
 const server = http.createServer(app);
@@ -127,6 +128,9 @@ function processHtml(html) {
 	//const logo_url = "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg";
 	const logo_url = "/public/wikipast.png";
 	$("#p-logo a").css("background-image", `url(${logo_url})`);
+
+	// Favicon
+	$("head").append("<link rel=\"icon\" type=\"image/png\" href=\"/favicon.ico\">");
 
 	return $.html();
 }
